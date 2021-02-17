@@ -18,22 +18,8 @@ class App extends React.Component {
       view: 'kda',
     };
 
-    this.getStatistics = this.getStatistics.bind(this);
     this.searchSummoner = this.searchSummoner.bind(this);
     this.changeView = this.changeView.bind(this);
-  }
-
-  componentDidMount() {
-    // this.getStatistics();
-  }
-
-  getStatistics() {
-    axios.get(`/summonerStats?summoner=Chubbabubba`)
-      .then(({ data }) => {
-        this.setState({
-          matches: data,
-        });
-      })
   }
 
   searchSummoner(summoner) {
