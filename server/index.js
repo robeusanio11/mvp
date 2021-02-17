@@ -20,18 +20,16 @@ app.get('/summonerStats', getMatchStats);
 
 app.get('/previouslySearched', getPreviouslySearched);
 
-
-
-app.get('/delete', (req, res) => {
-  return SearchHistory.deleteOne({
-    summoner: 'Bjergson'
-  })
-    .then(async () => {
-      await SearchHistory.find({})
-        .then((results) => {
-          console.log(results);
-        })
-    })
-})
+// app.get('/delete', (req, res) => {
+//   return SearchHistory.deleteOne({
+//     summoner: ''
+//   })
+//     .then(async () => {
+//       await SearchHistory.find({})
+//         .then((results) => {
+//           console.log(results);
+//         })
+//     })
+// })
 
 app.listen(PORT, () => { console.log('Server listening on port:', PORT) });
