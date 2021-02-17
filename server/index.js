@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const API_KEY = require('./api_key.js')
+const API_KEY = require('./apiKey.js')
 const {
-  getMatchStats
+  getMatchStats,
+  getPreviouslySearched
 } = require('./controllers.js')
 const bodyParser = require('body-parser');
+require('../database/index.js');
+const { SearchHistory } = require('../database/Model.js');
 
 const PORT = 1111;
 
@@ -14,5 +17,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/summonerStats', getMatchStats);
+
+app.get('/previouslySearched', getPreviouslySearched);
+
+app.get('/delete', (req, res) => {
+  return SearchHistory.deleteOne({
+    summoner: 'undefined'
+  })
+    .then(async () => {
+      await SearchHistory.find({})
+        .then((results) => {
+          console.log(results);
+        })
+    })
+})
 
 app.listen(PORT, () => { console.log('Server listening on port:', PORT) });

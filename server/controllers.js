@@ -1,5 +1,6 @@
 const axios = require('axios');
-const API_KEY = require('./api_key.js');
+const API_KEY = require('./apiKey.js');
+const { SearchHistory } = require('../database/Model.js');
 
 const getMatchStats = async (req, res) => {
   const { summoner } = req.query;
@@ -14,7 +15,7 @@ const getMatchStats = async (req, res) => {
         .then(async ({ data }) => {
           const { matches } = data;
           // Loops through last 10 matches
-          for (var { gameId } of matches) {
+          for (var [index, { gameId }] of matches.entries()) {
             // Gets stats for each match
             await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${gameId}?api_key=${API_KEY}`)
               .then(({ data }) => {
@@ -29,7 +30,12 @@ const getMatchStats = async (req, res) => {
                 // Adds stats to matchStats array
                 participants.forEach(({ participantId, stats }) => {
                   if (myId === participantId) {
-                    matchStats.push(stats);
+                    matchStats.push({
+                      id: index + 1,
+                      kills: stats.kills,
+                      deaths: stats.deaths,
+                      assists: stats.assists
+                    });
                   }
                 });
               })
@@ -39,10 +45,37 @@ const getMatchStats = async (req, res) => {
         .catch((err) => { console.error(err) });
     })
     .catch((err) => { console.error(err) });
+
+  await SearchHistory.findOneAndUpdate(
+  // Where clause
+  { summoner, },
+  // New data
+  {
+    summoner,
+    matches: matchStats,
+  },
+  // Options
+  {
+    upsert: true,
+    useFindAndModify: false
+  })
+    .catch((err) => {
+      console.error(err);
+    })
+
   // Sends stats from last 10 matches
   res.send(matchStats)
-}
+};
+
+const getPreviouslySearched = (req, res) => {
+  return SearchHistory.find({})
+    .then((results) => {
+      res.send(results)
+    })
+    .catch((err) => { console.error(err); })
+};
 
 module.exports = {
-  getMatchStats: getMatchStats,
+  getMatchStats,
+  getPreviouslySearched,
 }
