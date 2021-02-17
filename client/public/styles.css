@@ -10,6 +10,7 @@
 .graph {
   grid-column: 2;
   grid-row: 1;
+  max-height: 600px;
 }
 
 .graphContainer {
@@ -26,6 +27,12 @@
   height: 100%;
 }
 
+.preGraph {
+  margin-top: 50px;
+  text-align: center;
+  grid-column: 2;
+}
+
 .previouslySearched {
   grid-column: 3;
 }
@@ -37,10 +44,6 @@
 
 .statistics {
   grid-column: 1;
-}
-
-.submit {
-  height:
 }
 
 .search {
@@ -56,4 +59,9 @@
 .searchForm {
   display: inline-block;
   min-width: 100%;
+}
+
+.viewButtons {
+  grid-column: 2;
+  grid-row: 1;
 }
