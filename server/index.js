@@ -20,9 +20,11 @@ app.get('/summonerStats', getMatchStats);
 
 app.get('/previouslySearched', getPreviouslySearched);
 
+
+
 app.get('/delete', (req, res) => {
   return SearchHistory.deleteOne({
-    summoner: 'undefined'
+    summoner: 'Bjergson'
   })
     .then(async () => {
       await SearchHistory.find({})

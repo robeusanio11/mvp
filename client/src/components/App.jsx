@@ -12,15 +12,19 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      matches: [],
+      kda: [],
+      damageDealt: [],
+      damageTaken: [],
+      view: 'kda',
     };
 
     this.getStatistics = this.getStatistics.bind(this);
     this.searchSummoner = this.searchSummoner.bind(this);
+    this.changeView = this.changeView.bind(this);
   }
 
   componentDidMount() {
-    this.getStatistics();
+    // this.getStatistics();
   }
 
   getStatistics() {
@@ -35,24 +39,47 @@ class App extends React.Component {
   searchSummoner(summoner) {
     axios.get(`/summonerStats?summoner=${summoner}`)
       .then(({ data }) => {
+        const { kda, damageDealt, damageTaken} = data;
         this.setState({
-          matches: data,
+          kda,
+          damageDealt,
+          damageTaken,
         });
       });
   }
 
+  changeView(event) {
+    event.preventDefault();
+    this.setState({
+      view: event.target.value,
+    })
+  }
+
   render() {
-    const { matches } = this.state;
-    const { searchSummoner } = this;
+    const { kda, damageDealt, damageTaken, view } = this.state;
+    const { searchSummoner, changeView } = this;
     return (
       <div className="app">
         <Statistics
-          matches={matches}
+          kda={kda}
+          damageDealt={damageDealt}
+          damageTaken={damageTaken}
+          view={view}
         />
         <div className="searchBar">
         <Searchbar searchSummoner={searchSummoner} />
         </div>
-        <Graph data={matches} />
+        <Graph
+          view={view}
+          kda={kda}
+          damageDealt={damageDealt}
+          damageTaken={damageTaken}
+        />
+        <div className="viewButtons">
+          <button value="kda" onClick={changeView}>KDA</button>
+          <button value="damageDealt" onClick={changeView}>Damage</button>
+          <button value="damageTaken" onClick={changeView}>Defense</button>
+        </div>
         <PreviouslySearched searchSummoner={searchSummoner}/>
       </div>
     );

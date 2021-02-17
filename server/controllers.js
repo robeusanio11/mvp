@@ -4,7 +4,11 @@ const { SearchHistory } = require('../database/Model.js');
 
 const getMatchStats = async (req, res) => {
   const { summoner } = req.query;
-  const matchStats = [];
+  const matchStats = {
+    kda: [],
+    damageDealt: [],
+    damageTaken: [],
+  };
 
   // Gets accountId of provided summoner
   await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${API_KEY}`)
@@ -28,13 +32,36 @@ const getMatchStats = async (req, res) => {
                   }
                 }
                 // Adds stats to matchStats array
-                participants.forEach(({ participantId, stats }) => {
+                participants.forEach(({ participantId, stats, timeline }) => {
                   if (myId === participantId) {
-                    matchStats.push({
+                    const {
+                      kills,
+                      deaths,
+                      assists,
+                      totalDamageDealt,
+                      magicDamageDealt,
+                      physicalDamageDealt,
+                      totalDamageTaken,
+                      magicalDamageTaken,
+                      physicalDamageTaken,
+                    } = stats;
+                    matchStats.kda.push({
                       id: index + 1,
-                      kills: stats.kills,
-                      deaths: stats.deaths,
-                      assists: stats.assists
+                      kills,
+                      deaths,
+                      assists,
+                    });
+                    matchStats.damageDealt.push({
+                      id: index + 1,
+                      totalDamageDealt,
+                      magicDamageDealt,
+                      physicalDamageDealt,
+                    });
+                    matchStats.damageTaken.push({
+                      id: index + 1,
+                      totalDamageTaken,
+                      magicalDamageTaken,
+                      physicalDamageTaken,
                     });
                   }
                 });
