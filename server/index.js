@@ -4,7 +4,8 @@ const path = require('path');
 const API_KEY = require('./apiKey.js')
 const {
   getMatchStats,
-  getPreviouslySearched
+  getPreviouslySearched,
+  getPreviousStats,
 } = require('./controllers.js')
 const bodyParser = require('body-parser');
 require('../database/index.js');
@@ -20,16 +21,6 @@ app.get('/summonerStats', getMatchStats);
 
 app.get('/previouslySearched', getPreviouslySearched);
 
-// app.get('/delete', (req, res) => {
-//   return SearchHistory.deleteOne({
-//     summoner: ''
-//   })
-//     .then(async () => {
-//       await SearchHistory.find({})
-//         .then((results) => {
-//           console.log(results);
-//         })
-//     })
-// })
+app.get('/previousStats', getPreviousStats)
 
 app.listen(PORT, () => { console.log('Server listening on port:', PORT) });

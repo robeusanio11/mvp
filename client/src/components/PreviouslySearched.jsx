@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PreviouslySearched = ({ searchSummoner }) => {
+const PreviouslySearched = ({ getSummoner }) => {
   const [previouslySearched, setPreviouslySearched] = useState([]);
 
   const getPreviouslySearched = () => {
@@ -24,7 +24,7 @@ const PreviouslySearched = ({ searchSummoner }) => {
     <div>
     <h3 className="previouslySearched">Previously Searched</h3>
     {previouslySearched.map((prevSearch) => (
-      <div onClick={getPreviousEntry}>{prevSearch.summoner}</div>
+      <div className="summonerName" onClick={(e) => { getSummoner(e.target.innerHTML) }}>{prevSearch.summoner}</div>
     ))}
     </div>
   );

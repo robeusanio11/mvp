@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
-const KdaGraph = ({ kda}) => {
+const KdaGraph = ({ kda, KdaAverage }) => {
   if (kda.length < 1) {
     return <div className="preGraph">Try Searching For A Summoner!</div>
   }
@@ -16,6 +16,29 @@ const KdaGraph = ({ kda}) => {
           indexBy={"id"}
           margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
           padding={0.3}
+          markers={[
+            {
+                axis: 'y',
+                value: KdaAverage.kills,
+                lineStyle: { stroke: '#80f171', strokeWidth: 2 },
+                legend: KdaAverage.kills,
+                legendOrientation: 'horizontal',
+            },
+            {
+              axis: 'y',
+              value: KdaAverage.deaths,
+              lineStyle: { stroke: '#e399fa', strokeWidth: 2 },
+              legend: KdaAverage.deaths,
+              legendOrientation: 'horizontal',
+            },
+            {
+              axis: 'y',
+              value: KdaAverage.assists,
+              lineStyle: { stroke: '#ffb968', strokeWidth: 2 },
+              legend: KdaAverage.assists,
+              legendOrientation: 'horizontal',
+            },
+        ]}
           animate={true}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
