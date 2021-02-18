@@ -102,7 +102,19 @@ const getPreviouslySearched = (req, res) => {
     .catch((err) => { console.error(err); })
 };
 
+const getPreviousStats = (req, res) => {
+  const { summoner } = req.query;
+  return SearchHistory.find({
+    summoner,
+  })
+    .then((results) => {
+      res.send(results);
+    })
+    .catch((err) => { console.error(err); })
+}
+
 module.exports = {
   getMatchStats,
   getPreviouslySearched,
+  getPreviousStats,
 }

@@ -17,7 +17,7 @@
   position: relative;
   height: 500px;
   width: 90%;
-  margin-top: 50px;
+  margin-top: 60px;
   border: 1px solid black;
 }
 
@@ -35,6 +35,10 @@
 
 .previouslySearched {
   grid-column: 3;
+}
+
+.summonerName {
+  cursor: pointer;
 }
 
 .searchBar {
@@ -62,6 +66,12 @@
 }
 
 .viewButtons {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.rankButtons {
+  margin-top: 40px;
   grid-column: 2;
   grid-row: 1;
 }

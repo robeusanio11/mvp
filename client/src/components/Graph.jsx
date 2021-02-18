@@ -3,11 +3,14 @@ import KdaGraph from './KdaGraph.jsx';
 import DamageGraph from './DamageGraph.jsx';
 import DefenseGraph from './DefenseGraph.jsx';
 
-const Graph = ({ view, kda, damageDealt, damageTaken }) => {
+const Graph = ({ view, kda, damageDealt, damageTaken, KdaAverage }) => {
   if (view === 'kda') {
+    console.log(KdaAverage)
     return (
       <>
-        <KdaGraph kda={kda}/>
+        <KdaGraph
+          kda={kda}
+          KdaAverage={KdaAverage}/>
       </>
     )
   } else if (view === 'damageDealt') {

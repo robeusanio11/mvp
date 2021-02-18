@@ -15,7 +15,7 @@ const searchHistorySchema = mongoose.Schema({
       {
         id: Number,
         totalDamageDealt: Number,
-        magicalDamageDealt: Number,
+        magicDamageDealt: Number,
         physicalDamageDealt: Number,
       }
     ],
@@ -23,7 +23,7 @@ const searchHistorySchema = mongoose.Schema({
       {
         id: Number,
         totalDamageTaken: Number,
-        magicDamageTaken: Number,
+        magicalDamageTaken: Number,
         physicalDamageTaken: Number,
       }
     ]
