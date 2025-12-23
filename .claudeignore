@@ -1,0 +1,5 @@
+# Hide sensitive files from Claude Code
+server/apiKey.js
+*.env
+.env*
+**/secrets/**

@@ -1,24 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #333;
+}
+
 .app {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 1fr;
-  border: 1px solid black;
-  margin-left: 100px;
-  margin-right: 100px;
+  grid-gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.searchBar {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.searchForm {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.search {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  width: 300px;
+  transition: border-color 0.3s;
+}
+
+.search:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.submit {
+  padding: 12px 30px;
+  font-size: 16px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit:hover {
+  background: #5568d3;
+}
+
+.statistics {
+  grid-column: 1;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.statistics::-webkit-scrollbar {
+  width: 8px;
+}
+
+.statistics::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.statistics::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 4px;
+}
+
+.statistics::-webkit-scrollbar-thumb:hover {
+  background: #5568d3;
+}
+
+.statistics ul {
+  list-style: none;
+}
+
+.statistics div {
+  background: #f8f9fa;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.statistics h3 {
+  color: #667eea;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.statistics div div {
+  background: transparent;
+  padding: 4px 0;
+  margin: 0;
+  border: none;
+  font-size: 14px;
 }
 
 .graph {
   grid-column: 2;
-  grid-row: 1;
-  max-height: 600px;
 }
 
 .graphContainer {
   position: relative;
   height: 500px;
-  width: 90%;
-  margin-top: 60px;
-  border: 1px solid black;
+  width: 100%;
+  margin-top: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 .barGraph {
@@ -28,50 +137,77 @@
 }
 
 .preGraph {
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: center;
   grid-column: 2;
 }
 
+.controlsContainer {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.viewButtons, .rankButtons {
+  text-align: center;
+}
+
+.viewButtons label, .rankButtons label {
+  display: block;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.viewButtons button, .rankButtons button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+}
+
+.viewButtons button:hover, .rankButtons button:hover {
+  background: #667eea;
+  color: white;
+}
+
 .previouslySearched {
   grid-column: 3;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+.previouslySearched h3 {
+  color: #667eea;
+  margin-bottom: 15px;
+  font-size: 16px;
 }
 
 .summonerName {
   cursor: pointer;
-}
-
-.searchBar {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.statistics {
-  grid-column: 1;
-}
-
-.search {
   padding: 10px;
-  font-size: 13px;
-  border: 1px solid grey;
-  width: 20%;
-  height: 0px;
-  background: #f1f1f1;
-  margin-top: 10px;
+  margin-bottom: 8px;
+  background: white;
+  border-radius: 6px;
+  transition: all 0.3s;
+  border-left: 3px solid #667eea;
 }
 
-.searchForm {
-  display: inline-block;
-  min-width: 100%;
-}
-
-.viewButtons {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.rankButtons {
-  margin-top: 40px;
-  grid-column: 2;
-  grid-row: 1;
+.summonerName:hover {
+  background: #667eea;
+  color: white;
+  transform: translateX(5px);
 }

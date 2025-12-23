@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Statistics from './Statistics';
 import Graph from './Graph';
@@ -7,107 +7,110 @@ import Searchbar from './Searchbar';
 
 import axios from 'axios';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
+const RANKS = ['Iron', 'Bronze', 'Silver', 'Gold', 'Platinum', 'Emerald', 'Diamond', 'Master', 'GrandMaster', 'Challenger'];
+const VIEWS = [
+  { value: 'kda', label: 'KDA' },
+  { value: 'damageDealt', label: 'Damage' },
+  { value: 'damageTaken', label: 'Defense' }
+];
 
-    this.state = {
-      kda: [],
-      damageDealt: [],
-      damageTaken: [],
-      view: 'kda',
-      KdaAverages: props.KdaAverages,
-      currRank: 0,
-    };
+const App = ({ KdaAverages }) => {
+  const [kda, setKda] = useState([]);
+  const [damageDealt, setDamageDealt] = useState([]);
+  const [damageTaken, setDamageTaken] = useState([]);
+  const [view, setView] = useState('kda');
+  const [currRank, setCurrRank] = useState(0);
 
-    this.searchSummoner = this.searchSummoner.bind(this);
-    this.changeView = this.changeView.bind(this);
-    this.setCurrRank = this.setCurrRank.bind(this);
-    this.getSummoner = this.getSummoner.bind(this);
-  }
-
-  searchSummoner(summoner) {
-    axios.get(`/summonerStats?summoner=${summoner}`)
+  const searchSummoner = (summoner) => {
+    axios.get(`/summonerStats?summoner=${encodeURIComponent(summoner)}`)
       .then(({ data }) => {
-        const { kda, damageDealt, damageTaken} = data;
-        this.setState({
-          kda,
-          damageDealt,
-          damageTaken,
-        });
+        console.log('Received data:', data);
+        const { kda, damageDealt, damageTaken } = data;
+        console.log('Setting state - kda:', kda, 'damageDealt:', damageDealt, 'damageTaken:', damageTaken);
+        setKda(kda);
+        setDamageDealt(damageDealt);
+        setDamageTaken(damageTaken);
+      })
+      .catch((err) => {
+        const errorMsg = err.response?.data?.error || 'Failed to fetch summoner stats';
+        alert(errorMsg);
+        console.error('Error:', err.response?.data || err.message);
       });
-  }
+  };
 
-  getSummoner(summoner) {
-    axios.get(`/previousStats?summoner=${summoner}`)
+  const getSummoner = (summoner) => {
+    axios.get(`/previousStats?summoner=${encodeURIComponent(summoner)}`)
       .then(({ data }) => {
-        console.log(data[0])
-        const { kda, damageDealt, damageTaken} = data[0].matches;
-        this.setState({
-          kda,
-          damageDealt,
-          damageTaken,
-        });
+        console.log('Previous data:', data);
+        if (data[0]) {
+          const { kda, damageDealt, damageTaken } = data[0].matches;
+          setKda(kda);
+          setDamageDealt(damageDealt);
+          setDamageTaken(damageTaken);
+        }
+      })
+      .catch((err) => {
+        console.error('Error fetching previous stats:', err.message);
       });
-  }
+  };
 
-  changeView(event) {
+  const changeView = (event) => {
     event.preventDefault();
-    this.setState({
-      view: event.target.value,
-    });
-  }
+    setView(event.target.value);
+  };
 
-  setCurrRank(event) {
+  const handleSetCurrRank = (event) => {
     event.preventDefault();
-    this.setState({
-      currRank: event.target.value,
-    });
-  }
+    setCurrRank(Number(event.target.value));
+  };
 
-  render() {
-    const { kda, damageDealt, damageTaken, view, KdaAverages, currRank } = this.state;
-    const { searchSummoner, changeView, setCurrRank, getSummoner } = this;
-    return (
-      <div className="app">
-        <Statistics
-          kda={kda}
-          damageDealt={damageDealt}
-          damageTaken={damageTaken}
-          view={view}
-        />
-        <div className="searchBar">
+  console.log('Rendering - kda length:', kda.length, 'view:', view);
+
+  return (
+    <div className="app">
+      <div className="searchBar">
         <Searchbar searchSummoner={searchSummoner} />
-        </div>
-        <Graph
-          view={view}
-          kda={kda}
-          damageDealt={damageDealt}
-          damageTaken={damageTaken}
-          KdaAverage={KdaAverages[currRank]}
-        />
+      </div>
+
+      <div className="controlsContainer">
         <div className="viewButtons">
-          Stats:
-          <button value="kda" onClick={changeView}>KDA</button>
-          <button value="damageDealt" onClick={changeView}>Damage</button>
-          <button value="damageTaken" onClick={changeView}>Defense</button>
+          <label>Stats:</label>
+          <div>
+            {VIEWS.map(({ value, label }) => (
+              <button key={value} value={value} onClick={changeView}>
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="rankButtons">
-          Averages:
-          <button value={0} onClick={setCurrRank}>Iron</button>
-          <button value={1} onClick={setCurrRank}>Bronze</button>
-          <button value={2} onClick={setCurrRank}>Silver</button>
-          <button value={3} onClick={setCurrRank}>Gold</button>
-          <button value={4} onClick={setCurrRank}>Platinum</button>
-          <button value={5} onClick={setCurrRank}>Diamond</button>
-          <button value={6} onClick={setCurrRank}>Master</button>
-          <button value={7} onClick={setCurrRank}>GrandMaster</button>
-          <button value={8} onClick={setCurrRank}>Challenger</button>
+          <label>Averages:</label>
+          <div>
+            {RANKS.map((rank, index) => (
+              <button key={rank} value={index} onClick={handleSetCurrRank}>
+                {rank}
+              </button>
+            ))}
+          </div>
         </div>
-        <PreviouslySearched getSummoner={getSummoner}/>
       </div>
-    );
-  }
+
+      <Statistics
+        kda={kda}
+        damageDealt={damageDealt}
+        damageTaken={damageTaken}
+        view={view}
+      />
+      <Graph
+        view={view}
+        kda={kda}
+        damageDealt={damageDealt}
+        damageTaken={damageTaken}
+        KdaAverage={KdaAverages[currRank]}
+      />
+      <PreviouslySearched getSummoner={getSummoner}/>
+    </div>
+  );
 };
 
 export default App;

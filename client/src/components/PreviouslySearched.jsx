@@ -13,18 +13,18 @@ const PreviouslySearched = ({ getSummoner }) => {
 
   const getPreviousEntry = (event) => {
     event.preventDefault();
-    searchSummoner(event.target.innerHTML);
+    getSummoner(event.target.innerHTML);
   }
 
   useEffect(() => {
     getPreviouslySearched();
-  })
+  }, [])
 
   return (
     <div>
     <h3 className="previouslySearched">Previously Searched</h3>
     {previouslySearched.map((prevSearch) => (
-      <div className="summonerName" onClick={(e) => { getSummoner(e.target.innerHTML) }}>{prevSearch.summoner}</div>
+      <div key={prevSearch.summoner} className="summonerName" onClick={(e) => { getSummoner(e.target.innerHTML) }}>{prevSearch.summoner}</div>
     ))}
     </div>
   );

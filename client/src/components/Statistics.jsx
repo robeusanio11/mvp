@@ -10,6 +10,7 @@ const Statistics = ({ kda, damageDealt, damageTaken, view }) => {
         <ul>
           {kda.map((match) => (
             <KdaStats
+              key={match.id}
               id={match.id}
               kills={match.kills}
               deaths={match.deaths}
@@ -25,6 +26,7 @@ const Statistics = ({ kda, damageDealt, damageTaken, view }) => {
         <ul>
           {damageDealt.map((match) => (
             <DamageStats
+              key={match.id}
               id={match.id}
               totalDamageDealt={match.totalDamageDealt}
               magicDamageDealt={match.magicDamageDealt}
@@ -40,6 +42,7 @@ const Statistics = ({ kda, damageDealt, damageTaken, view }) => {
         <ul>
           {damageTaken.map((match) => (
             <DefenseStats
+              key={match.id}
               id={match.id}
               totalDamageTaken={match.totalDamageTaken}
               magicalDamageTaken={match.magicalDamageTaken}

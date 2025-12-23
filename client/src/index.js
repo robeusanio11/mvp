@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './components/App.jsx';
 import KdaAverages from './KdaAverages.js';
 
-ReactDOM.render(<App KdaAverages={KdaAverages}/>, document.getElementById('app'));
+const root = createRoot(document.getElementById('app'));
+root.render(<App KdaAverages={KdaAverages}/>);

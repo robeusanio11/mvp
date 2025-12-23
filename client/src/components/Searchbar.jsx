@@ -9,9 +9,9 @@ const Searchbar = ({ searchSummoner }) => {
   }
 
   return (
-    <div style={{'text-align': 'center'}}>
+    <div style={{textAlign: 'center'}}>
       <form className="searchForm" onSubmit={handleSubmit}>
-        <input className="search" type="text" onChange={event => setSummoner(event.target.value)} value={summoner} placeholder="Search For Summoners" />
+        <input className="search" type="text" onChange={event => setSummoner(event.target.value)} value={summoner} placeholder="Enter Riot ID (e.g., PlayerName#NA1)" />
         <button className="submit" type="submit" value="Submit">Go</button>
       </form>
     </div>

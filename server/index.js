@@ -7,15 +7,14 @@ const {
   getPreviouslySearched,
   getPreviousStats,
 } = require('./controllers.js')
-const bodyParser = require('body-parser');
 require('../database/index.js');
 const { SearchHistory } = require('../database/Model.js');
 
 const PORT = 1111;
 
 app.use(express.static(path.join(__dirname, '../client/public')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get('/summonerStats', getMatchStats);
 
