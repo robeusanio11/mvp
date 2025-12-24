@@ -18,7 +18,7 @@ const DefenseGraph = ({ damageTaken }) => {
           animate={true}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={{ scheme: 'set2' }}
+          colors={['#667eea', '#9b59b6']}
           legends={[
             {
               dataFrom: 'keys',

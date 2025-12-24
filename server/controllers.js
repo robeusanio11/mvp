@@ -1,6 +1,6 @@
 const axios = require('axios');
 const API_KEY = require('./apiKey.js');
-const { SearchHistory } = require('../database/Model.js');
+// const { SearchHistory } = require('../database/Model.js');
 
 const getMatchStats = async (req, res) => {
   const { summoner } = req.query;
@@ -120,36 +120,36 @@ const getMatchStats = async (req, res) => {
   res.send(matchStats);
 
   // Save to database asynchronously (non-blocking, optional)
-  SearchHistory.findOneAndUpdate(
-    { summoner },
-    { summoner, matches: matchStats },
-    { upsert: true, useFindAndModify: false }
-  ).catch((err) => {
-    console.warn('Database save failed (non-critical):', err.message);
-  });
+  // SearchHistory.findOneAndUpdate(
+  //   { summoner },
+  //   { summoner, matches: matchStats },
+  //   { upsert: true, useFindAndModify: false }
+  // ).catch((err) => {
+  //   console.warn('Database save failed (non-critical):', err.message);
+  // });
 };
 
-const getPreviouslySearched = (req, res) => {
-  return SearchHistory.find({})
-    .then((results) => {
-      res.send(results)
-    })
-    .catch((err) => { console.error(err); })
-};
+// const getPreviouslySearched = (req, res) => {
+//   return SearchHistory.find({})
+//     .then((results) => {
+//       res.send(results)
+//     })
+//     .catch((err) => { console.error(err); })
+// };
 
-const getPreviousStats = (req, res) => {
-  const { summoner } = req.query;
-  return SearchHistory.find({
-    summoner,
-  })
-    .then((results) => {
-      res.send(results);
-    })
-    .catch((err) => { console.error(err); })
-}
+// const getPreviousStats = (req, res) => {
+//   const { summoner } = req.query;
+//   return SearchHistory.find({
+//     summoner,
+//   })
+//     .then((results) => {
+//       res.send(results);
+//     })
+//     .catch((err) => { console.error(err); })
+// }
 
 module.exports = {
   getMatchStats,
-  getPreviouslySearched,
-  getPreviousStats,
+  // getPreviouslySearched,
+  // getPreviousStats,
 }

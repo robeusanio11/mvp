@@ -18,7 +18,7 @@ const DamageGraph = ({ damageDealt }) => {
           animate={true}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={{ scheme: 'pastel1' }}
+          colors={['#667eea', '#9b59b6']}
           legends={[
             {
               dataFrom: 'keys',

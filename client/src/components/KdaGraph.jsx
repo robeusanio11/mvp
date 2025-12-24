@@ -20,21 +20,21 @@ const KdaGraph = ({ kda, KdaAverage }) => {
             {
                 axis: 'y',
                 value: KdaAverage.kills,
-                lineStyle: { stroke: '#80f171', strokeWidth: 2 },
+                lineStyle: { stroke: '#667eea', strokeWidth: 2 },
                 legend: KdaAverage.kills,
                 legendOrientation: 'horizontal',
             },
             {
               axis: 'y',
               value: KdaAverage.deaths,
-              lineStyle: { stroke: '#e399fa', strokeWidth: 2 },
+              lineStyle: { stroke: '#ff6bf3ff', strokeWidth: 2 },
               legend: KdaAverage.deaths,
               legendOrientation: 'horizontal',
             },
             {
               axis: 'y',
               value: KdaAverage.assists,
-              lineStyle: { stroke: '#ffb968', strokeWidth: 2 },
+              lineStyle: { stroke: '#ae7bde', strokeWidth: 2 },
               legend: KdaAverage.assists,
               legendOrientation: 'horizontal',
             },
@@ -42,7 +42,7 @@ const KdaGraph = ({ kda, KdaAverage }) => {
           animate={true}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={{ scheme: 'accent' }}
+          colors={['#667eea', '#ff6bf3ff', '#9b59b6']}
           legends={[
             {
               dataFrom: 'keys',

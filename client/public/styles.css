@@ -14,14 +14,38 @@ body {
 
 .app {
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 3fr;
   grid-gap: 20px;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   background: white;
   border-radius: 12px;
   padding: 30px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.header {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.headerTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(102, 126, 234, 0.1);
+}
+
+.headerDescription {
+  font-size: 16px;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 .searchBar {
@@ -167,7 +191,7 @@ body {
 
 .viewButtons button, .rankButtons button {
   padding: 8px 16px;
-  margin: 0 5px;
+  margin: 5px;
   background: white;
   color: #667eea;
   border: 2px solid #667eea;
@@ -182,7 +206,8 @@ body {
   color: white;
 }
 
-.previouslySearched {
+/* Previously Searched styles - commented out for potential future use */
+/* .previouslySearched {
   grid-column: 3;
   padding: 20px;
   background: #f8f9fa;
@@ -210,4 +235,4 @@ body {
   background: #667eea;
   color: white;
   transform: translateX(5px);
-}
+} */

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 
 import Statistics from './Statistics';
 import Graph from './Graph';
-import PreviouslySearched from './PreviouslySearched';
+// import PreviouslySearched from './PreviouslySearched';
 import Searchbar from './Searchbar';
+import Header from './Header';
 
 import axios from 'axios';
 
@@ -38,21 +39,21 @@ const App = ({ KdaAverages }) => {
       });
   };
 
-  const getSummoner = (summoner) => {
-    axios.get(`/previousStats?summoner=${encodeURIComponent(summoner)}`)
-      .then(({ data }) => {
-        console.log('Previous data:', data);
-        if (data[0]) {
-          const { kda, damageDealt, damageTaken } = data[0].matches;
-          setKda(kda);
-          setDamageDealt(damageDealt);
-          setDamageTaken(damageTaken);
-        }
-      })
-      .catch((err) => {
-        console.error('Error fetching previous stats:', err.message);
-      });
-  };
+  // const getSummoner = (summoner) => {
+  //   axios.get(`/previousStats?summoner=${encodeURIComponent(summoner)}`)
+  //     .then(({ data }) => {
+  //       console.log('Previous data:', data);
+  //       if (data[0]) {
+  //         const { kda, damageDealt, damageTaken } = data[0].matches;
+  //         setKda(kda);
+  //         setDamageDealt(damageDealt);
+  //         setDamageTaken(damageTaken);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error('Error fetching previous stats:', err.message);
+  //     });
+  // };
 
   const changeView = (event) => {
     event.preventDefault();
@@ -68,6 +69,8 @@ const App = ({ KdaAverages }) => {
 
   return (
     <div className="app">
+      <Header />
+
       <div className="searchBar">
         <Searchbar searchSummoner={searchSummoner} />
       </div>
@@ -108,7 +111,7 @@ const App = ({ KdaAverages }) => {
         damageTaken={damageTaken}
         KdaAverage={KdaAverages[currRank]}
       />
-      <PreviouslySearched getSummoner={getSummoner}/>
+      {/* <PreviouslySearched getSummoner={getSummoner}/> */}
     </div>
   );
 };

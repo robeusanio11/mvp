@@ -4,11 +4,11 @@ const path = require('path');
 const API_KEY = require('./apiKey.js')
 const {
   getMatchStats,
-  getPreviouslySearched,
-  getPreviousStats,
+  // getPreviouslySearched,
+  // getPreviousStats,
 } = require('./controllers.js')
-require('../database/index.js');
-const { SearchHistory } = require('../database/Model.js');
+// require('../database/index.js');
+// const { SearchHistory } = require('../database/Model.js');
 
 const PORT = 1111;
 
@@ -18,8 +18,8 @@ app.use(express.json());
 
 app.get('/summonerStats', getMatchStats);
 
-app.get('/previouslySearched', getPreviouslySearched);
+// app.get('/previouslySearched', getPreviouslySearched);
 
-app.get('/previousStats', getPreviousStats)
+// app.get('/previousStats', getPreviousStats)
 
 app.listen(PORT, () => { console.log('Server listening on port:', PORT) });
