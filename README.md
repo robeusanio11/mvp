@@ -1,15 +1,40 @@
-# 🚀 Welcome to your new awesome project!
+# League of Legends Stats Tracker
 
-This project has been created using **webpack scaffold**, you can now run
+## Getting Started
 
+1. Install dependencies:
+```
+npm install
+```
+
+2. Build the project:
 ```
 npm run build
 ```
 
-or
-
+3. Start the server:
 ```
-yarn build
+npm start
 ```
 
-to bundle your application
+4. Open your browser and navigate to:
+```
+http://localhost:1111
+```
+
+## Features
+
+- Search for summoner stats
+- View KDA statistics
+- View damage dealt statistics
+- View damage taken statistics
+- Compare player performance to rank averages (Iron through Challenger)
+- Interactive graphs for visual data comparison
+
+## Technologies
+
+- Javascript w/ React (Frontend)
+- Nivo (Charting Library)
+- NodeJs w/ Express (Backend)
+- Webpack/Babel (Build Tools)
+<!-- - MongoDB w/ Mongoose (Database) -->
