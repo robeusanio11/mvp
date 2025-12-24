@@ -24,10 +24,8 @@ http://localhost:1111
 
 ## Features
 
-- Search for summoner stats
-- View KDA statistics
-- View damage dealt statistics
-- View damage taken statistics
+- Search for players based on summoner name
+- View KDA, Damage Dealt, and Damage Taken statistics
 - Compare player performance to rank averages (Iron through Challenger)
 - Interactive graphs for visual data comparison
 
