@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Statistics from './Statistics';
 import Graph from './Graph';
+import ButtonMenu from './ButtonMenu';
 // import PreviouslySearched from './PreviouslySearched';
 import Searchbar from './Searchbar';
 import Header from './Header';
@@ -15,7 +16,7 @@ const VIEWS = [
   { value: 'damageTaken', label: 'Defense' }
 ];
 
-const App = ({ KdaAverages }) => {
+const App = ({ KdaAverages, DamageDealtAverages, DamageTakenAverages }) => {
   const [kda, setKda] = useState([]);
   const [damageDealt, setDamageDealt] = useState([]);
   const [damageTaken, setDamageTaken] = useState([]);
@@ -75,28 +76,15 @@ const App = ({ KdaAverages }) => {
         <Searchbar searchSummoner={searchSummoner} />
       </div>
 
-      <div className="controlsContainer">
-        <div className="viewButtons">
-          <label>Stats:</label>
-          <div>
-            {VIEWS.map(({ value, label }) => (
-              <button key={value} value={value} onClick={changeView}>
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="rankButtons">
-          <label>Averages:</label>
-          <div>
-            {RANKS.map((rank, index) => (
-              <button key={rank} value={index} onClick={handleSetCurrRank}>
-                {rank}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+      <ButtonMenu
+        VIEWS={VIEWS}
+        view={view}
+        changeView={changeView}
+        RANKS={RANKS}
+        currRank={currRank}
+        handleSetCurrRank={handleSetCurrRank}
+        lastUpdated={KdaAverages.lastUpdated}
+      />
 
       <Statistics
         kda={kda}
@@ -109,7 +97,10 @@ const App = ({ KdaAverages }) => {
         kda={kda}
         damageDealt={damageDealt}
         damageTaken={damageTaken}
-        KdaAverage={KdaAverages[currRank]}
+        KdaAverage={KdaAverages.ranks[currRank]}
+        DamageAverage={DamageDealtAverages.ranks[currRank]}
+        DefenseAverage={DamageTakenAverages.ranks[currRank]}
+        rankName={RANKS[currRank]}
       />
       {/* <PreviouslySearched getSummoner={getSummoner}/> */}
     </div>

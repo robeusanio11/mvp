@@ -1,16 +1,27 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
-const DamageGraph = ({ damageDealt }) => {
+const DamageGraph = ({ damageDealt, DamageAverage, rankName = 'Iron' }) => {
   if (damageDealt.length < 1) {
     return <div className="preGraph">Try Searching For A Summoner!</div>
   }
+
+  // Add the average bar to the data
+  const dataWithAverage = [
+    ...damageDealt,
+    {
+      id: rankName,
+      magicDamageDealt: DamageAverage?.magicDamageDealt || 0,
+      physicalDamageDealt: DamageAverage?.physicalDamageDealt || 0,
+    }
+  ];
+
   return (
   <div className="graph">
     <div className="graphContainer">
       <div className="barGraph">
         <ResponsiveBar
-          data={damageDealt}
+          data={dataWithAverage}
           keys={['magicDamageDealt', 'physicalDamageDealt']}
           indexBy={"id"}
           margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
@@ -18,7 +29,21 @@ const DamageGraph = ({ damageDealt }) => {
           animate={true}
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={['#667eea', '#9b59b6']}
+          colors={({ id, data }) => {
+            // Use distinct gold/orange colors for rank average bar
+            if (data && data.id === rankName) {
+              return id === 'magicDamageDealt' ? '#FFD700' : '#FF8C00';
+            }
+            // Regular colors for match data
+            return id === 'magicDamageDealt' ? '#667eea' : '#9b59b6';
+          }}
+          borderWidth={2}
+          borderColor={({ data }) => {
+            if (data && data.id === rankName) {
+              return '#000000';
+            }
+            return 'transparent';
+          }}
           legends={[
             {
               dataFrom: 'keys',

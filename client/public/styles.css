@@ -206,6 +206,26 @@ body {
   color: white;
 }
 
+.viewButtons button.selected {
+  background: #667eea;
+  color: white;
+  font-weight: bold;
+}
+
+.rankButtons button.selected {
+  background: #667eea;
+  color: white;
+  font-weight: bold;
+  border-color: #667eea;
+}
+
+.lastUpdated {
+  margin-top: 5px;
+  color: #999;
+  font-size: 11px;
+  font-weight: normal;
+}
+
 /* Previously Searched styles - commented out for potential future use */
 /* .previouslySearched {
   grid-column: 3;

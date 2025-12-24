@@ -3,9 +3,8 @@ import KdaGraph from './KdaGraph.jsx';
 import DamageGraph from './DamageGraph.jsx';
 import DefenseGraph from './DefenseGraph.jsx';
 
-const Graph = ({ view, kda, damageDealt, damageTaken, KdaAverage }) => {
+const Graph = ({ view, kda, damageDealt, damageTaken, KdaAverage, DamageAverage, DefenseAverage, rankName }) => {
   if (view === 'kda') {
-    console.log(KdaAverage)
     return (
       <>
         <KdaGraph
@@ -16,13 +15,19 @@ const Graph = ({ view, kda, damageDealt, damageTaken, KdaAverage }) => {
   } else if (view === 'damageDealt') {
     return (
       <>
-        <DamageGraph damageDealt={damageDealt} />
+        <DamageGraph
+          damageDealt={damageDealt}
+          DamageAverage={DamageAverage}
+          rankName={rankName} />
       </>
     )
   } else if (view === 'damageTaken') {
     return (
       <>
-        <DefenseGraph damageTaken={damageTaken} />
+        <DefenseGraph
+          damageTaken={damageTaken}
+          DefenseAverage={DefenseAverage}
+          rankName={rankName} />
       </>
     )
   }
